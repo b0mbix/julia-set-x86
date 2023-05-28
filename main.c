@@ -5,18 +5,26 @@
 
 
 ALLEGRO_DISPLAY *display;
-int x;
+double c_real = 0, c_imaginary = 0, scale = 1;
 
-int draw() {
-//    whole julia operations is to be done here, rn it's one coloured screen
-    al_clear_to_color(al_map_rgb(x, x, x));
+void draw() {
+    al_clear_to_color(al_map_rgb(0, 0, 0));
+
+    ALLEGRO_LOCKED_REGION *locked = al_lock_bitmap(al_get_backbuffer(display), ALLEGRO_PIXEL_FORMAT_RGB_888, ALLEGRO_LOCK_READWRITE);
+    int width = al_get_display_width(display);
+    int height = al_get_display_height(display);
+    double left_x = width / 2.0;
+    double up_y = height / 2.0;
+
+    julia(width, height, left_x, up_y, scale, c_real, c_imaginary, locked->data, locked->pitch);
+    al_unlock_bitmap(al_get_backbuffer(display));
+
     al_flip_display();
 }
 
 
-int main(int argc, char * argv[]) {
+int main() {
     ALLEGRO_EVENT_QUEUE * queue;
-    x = 0;
 
 //    init allegro and modules
     al_init();
@@ -24,6 +32,7 @@ int main(int argc, char * argv[]) {
     al_install_mouse();
 
     display = al_create_display(640, 480);
+    al_set_window_title(display, "Julia set");
 
 //    events
     queue = al_create_event_queue();
@@ -65,7 +74,6 @@ int main(int argc, char * argv[]) {
             // scroll - zoom in for 1, zoom out for -1
             if (event.mouse.dz != 0) {
                 printf("scroll: %d\n", event.mouse.dz);
-                x += event.mouse.dz;
                 draw();
             }
         }
