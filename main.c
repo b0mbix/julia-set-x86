@@ -21,7 +21,7 @@ void draw() {
 //    debug info
     printf("left_x = %f\n", left_x);
     printf("up_y = %f\n", up_y);
-    printf("scale = %.10f\n", scale);
+    printf("scale = %.16f\n", scale);
     printf("c = %f + %fi\n", c_real, c_imaginary);
 
     julia(width, height, left_x, up_y, scale, c_real, c_imaginary, locked->data, locked->pitch);
@@ -76,7 +76,6 @@ int main() {
         }
         if (event.type == ALLEGRO_EVENT_MOUSE_AXES) {
             if (mouse_interaction == 1) {
-                printf("left button pressed\n");
                 center_x -= event.mouse.dx * scale;
                 center_y += event.mouse.dy * scale;
                 to_draw = true;
@@ -90,6 +89,8 @@ int main() {
             }
             if (to_draw && al_is_event_queue_empty(queue)) {
                 to_draw = false;
+                if (scale < 1e-15)
+                    scale = 1e-15;
                 draw();
             }
         }
