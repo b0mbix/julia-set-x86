@@ -24,8 +24,7 @@ void draw() {
     printf("scale = %.10f\n", scale);
     printf("c = %f + %fi\n", c_real, c_imaginary);
 
-
-    julia(width, height, left_x, up_y, scale, c_real, c_imaginary, locked->data, locked->pitch, x);
+    julia(width, height, left_x, up_y, scale, c_real, c_imaginary, locked->data, locked->pitch);
     al_unlock_bitmap(al_get_backbuffer(display));
 
     al_flip_display();
