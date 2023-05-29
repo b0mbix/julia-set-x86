@@ -6,7 +6,7 @@
 
 ALLEGRO_DISPLAY *display;
 double c_real = -0.8, c_imaginary = 0.156, scale = 0.01;
-int x = 0;
+double center_x = 0, center_y = 0;
 
 void draw() {
     al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -14,8 +14,8 @@ void draw() {
     ALLEGRO_LOCKED_REGION *locked = al_lock_bitmap(al_get_backbuffer(display), ALLEGRO_PIXEL_FORMAT_RGB_888, ALLEGRO_LOCK_READWRITE);
     int width = al_get_display_width(display);
     int height = al_get_display_height(display);
-    double left_x = - width * scale / 2.0;
-    double up_y = height * scale / 2.0;
+    double left_x = center_x - width * scale / 2.0;
+    double up_y = center_y + height * scale / 2.0;
 
 
 //    debug info
@@ -75,14 +75,17 @@ int main() {
             mouse_interaction = 0;
         }
         if (event.type == ALLEGRO_EVENT_MOUSE_AXES) {
-            if (mouse_interaction == 1)
+            if (mouse_interaction == 1) {
                 printf("left button pressed\n");
+                center_x -= event.mouse.dx * scale;
+                center_y += event.mouse.dy * scale;
+                to_draw = true;
+            }
             if (mouse_interaction == 2)
                 printf("right button pressed\n");
             // scroll - zoom in - dz=1, zoom out - dz=-1
             if (event.mouse.dz != 0) {
                 scale -= scale * event.mouse.dz * 0.1;
-                x += event.mouse.dz;
                 to_draw = true;
             }
             if (to_draw && al_is_event_queue_empty(queue)) {

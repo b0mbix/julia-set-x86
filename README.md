@@ -2,7 +2,7 @@
 Program generating Julia set, written in C++ (with Allegro library) and x86-64.
 
 ## Controls
-- LMB - TODO
+- LMB - Move image
 - RMB - TODO
 - Scroll - Zoom in/out
 - Escape - close program
