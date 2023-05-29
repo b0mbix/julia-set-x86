@@ -1,8 +1,8 @@
 # Julia set
-Program generating Julia set, written in C++ (with Allegro library) and x86-64.
+Program generating Julia set, written in C (with Allegro library) and x86-64.
 
 ## Controls
 - LMB - Move image
-- RMB - TODO
+- RMB - Change c variable value
 - Scroll - Zoom in/out
-- Escape - close program
+- Escape - Close program

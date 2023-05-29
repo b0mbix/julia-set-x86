@@ -5,7 +5,7 @@
 
 
 ALLEGRO_DISPLAY *display;
-double c_real = -0.8, c_imaginary = 0.156, scale = 0.01;
+double c_real = 0, c_imaginary = 0, scale = 0.005;
 double center_x = 0, center_y = 0;
 
 void draw() {
@@ -80,8 +80,11 @@ int main() {
                 center_y += event.mouse.dy * scale;
                 to_draw = true;
             }
-            if (mouse_interaction == 2)
-                printf("right button pressed\n");
+            if (mouse_interaction == 2) {
+                c_real += event.mouse.dx * scale / 2;
+                c_imaginary += event.mouse.dy * scale / 2;
+                to_draw = true;
+            }
             // scroll - zoom in - dz=1, zoom out - dz=-1
             if (event.mouse.dz != 0) {
                 scale -= scale * event.mouse.dz * 0.1;
