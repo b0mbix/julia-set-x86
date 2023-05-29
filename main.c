@@ -51,8 +51,8 @@ int main() {
 
 
     bool running = true;
+    bool to_draw = true;
     int mouse_interaction = 0;
-    draw();
     while (running) {
         ALLEGRO_EVENT event;
         al_wait_for_event(queue, &event);
@@ -79,11 +79,14 @@ int main() {
                 printf("left button pressed\n");
             if (mouse_interaction == 2)
                 printf("right button pressed\n");
-            // scroll - zoom in for 1, zoom out for -1
+            // scroll - zoom in - dz=1, zoom out - dz=-1
             if (event.mouse.dz != 0) {
-                printf("scroll: %d\n", event.mouse.dz);
                 scale -= scale * event.mouse.dz * 0.1;
                 x += event.mouse.dz;
+                to_draw = true;
+            }
+            if (to_draw && al_is_event_queue_empty(queue)) {
+                to_draw = false;
                 draw();
             }
         }
