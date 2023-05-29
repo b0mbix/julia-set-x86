@@ -5,7 +5,8 @@
 
 
 ALLEGRO_DISPLAY *display;
-double c_real = 0, c_imaginary = 0, scale = 1;
+double c_real = -0.8, c_imaginary = 0.156, scale = 1;
+int x = 0;
 
 void draw() {
     al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -16,7 +17,7 @@ void draw() {
     double left_x = width / 2.0;
     double up_y = height / 2.0;
 
-    julia(width, height, left_x, up_y, scale, c_real, c_imaginary, locked->data, locked->pitch);
+    julia(width, height, left_x, up_y, scale, c_real, c_imaginary, locked->data, locked->pitch, x);
     al_unlock_bitmap(al_get_backbuffer(display));
 
     al_flip_display();
@@ -74,6 +75,7 @@ int main() {
             // scroll - zoom in for 1, zoom out for -1
             if (event.mouse.dz != 0) {
                 printf("scroll: %d\n", event.mouse.dz);
+                x += event.mouse.dz;
                 draw();
             }
         }
