@@ -4,6 +4,7 @@ Program generating Julia set, written in C (with Allegro library) and x86-64 (NA
 ## Setup
 In order to run this program, you need to have installed:
 - `gcc` - C compiler
+- `nasm` - Assembler
 - `allegro` - image library
 - `cmake` - compilation tool
 
