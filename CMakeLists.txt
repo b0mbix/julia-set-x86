@@ -10,6 +10,3 @@ add_executable(julia_set julia.asm main.c)
 
 # allegro
 TARGET_LINK_LIBRARIES(julia_set allegro)
-
-# math
-TARGET_LINK_LIBRARIES(julia_set m)
